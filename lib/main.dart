@@ -3,6 +3,7 @@ import 'package:flutter_mvvm/utils/routes/routes.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view_model/auth_viewmodel.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
+import 'package:flutter_mvvm/view_model/createsession_viewmodel.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -19,10 +20,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => JobsViewModel()),
-        ChangeNotifierProvider(create: (_) => CandidateViewModel())
+        ChangeNotifierProvider(create: (_) => CandidateViewModel()),
+        ChangeNotifierProvider(create: (_) => CreateSessionViewModel()),
       ],
       child: MaterialApp(
-        title: 'Create Job',
+        title: 'Admin',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

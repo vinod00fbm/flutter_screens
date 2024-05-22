@@ -155,6 +155,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                           ),
                           onTap: () {
                             // Handle tap if needed, e.g., navigate to a detailed view
+                            Navigator.pushNamed(context, RoutesNames.createSession, arguments: candidate!.candidateId);
                           },
                         ),
                       ),

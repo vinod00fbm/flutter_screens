@@ -1,12 +1,10 @@
 import 'dart:html';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
@@ -58,7 +56,6 @@ class _CandidatePageState extends State<CandidatePage> {
 
   @override
   Widget build(BuildContext context) {
-    String _filePath = '';
     final candidateViewModel = Provider.of<CandidateViewModel>(context);
     return Scaffold(
       appBar: AppBar(
@@ -152,30 +149,6 @@ class _CandidatePageState extends State<CandidatePage> {
               const SizedBox(height: 20.0),
               TextButton(
                 onPressed: () async {
-                  // Open file picker
-                  /* FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowedExtensions: ['pdf'],
-                  );
-
-                  // Check if a file was selected
-                  if (result != null) {
-                    // Get the file path
-                    String? filePath = result.files.single.path;
-                    if (filePath != null) {
-                      // Do something with the selected file, like upload it
-                      _filePath = filePath;
-                      Text('Selected file path: $filePath');
-                      print('Selected file path: $filePath');
-                    } else {
-                      print('Failed to get file path');
-                    }
-                  } else {
-                    // User canceled the file picker
-                    print('File picker canceled');
-                  }*/
-
                   pickFile();
 
                   if (pickedFile != null) {
@@ -264,46 +237,4 @@ class _CandidatePageState extends State<CandidatePage> {
       },
     );
   }
-
-/*  Future<void> sendFileToApi() async {
-    if (selectedFilePath == null) {
-      // Handle case where no file is selected
-      print('Please select a file');
-      return;
-    }
-
-    final candidateName = _candidateNameController.text;
-    if (candidateName.isEmpty) {
-      // Handle case where candidate name is empty
-      print('Please enter candidate name');
-      return;
-
-
-    try {
-      var http;
-      final file = File(selectedFilePath!);
-      final request = http.MultipartRequest('POST', Uri.parse('your_api_url'));
-      request.fields['candidate_name'] = candidateName;
-
-      request.files.add(MultipartFile.fromPath('file', selectedFilePath!));
-      final response = await request.send();
-
-      if (response.statusCode == 200) {
-        // Handle successful upload
-        print('File uploaded successfully!');
-        // Clear UI for next submission (optional)
-        setState(() {
-          selectedFilePath = null;
-          _candidateNameController.text = '';
-        });
-      } else {
-        // Handle upload error
-        print('Error uploading file: ${response.statusCode}');
-      }
-    } catch (error) {
-      // Handle other errors
-      print('Error sending file: $error');
-    }
-  }
-*/
 }
