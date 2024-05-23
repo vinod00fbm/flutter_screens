@@ -7,6 +7,8 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/components/Constants.dart';
+import '../utils/GradientAppBar.dart';
 import '../utils/utils.dart';
 
 class CandidatePage extends StatefulWidget {
@@ -58,14 +60,12 @@ class _CandidatePageState extends State<CandidatePage> {
   Widget build(BuildContext context) {
     final candidateViewModel = Provider.of<CandidateViewModel>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Candidate Page',
-          style: TextStyle(
-            fontFamily: 'sourcesanspro_bold',
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+      appBar: GradientAppBar(
+        title: AppConstants.candidateForm,
+        gradient: const LinearGradient(
+          colors: [Colors.blue, Colors.purple],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       body: SingleChildScrollView(

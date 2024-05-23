@@ -4,6 +4,9 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/createsession_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/components/Constants.dart';
+import '../utils/GradientAppBar.dart';
+
 class CreateSession extends StatefulWidget {
   final int candidateId;
 
@@ -27,14 +30,12 @@ class _CreateSessionState extends State<CreateSession> {
     final createSessionViewModel = Provider.of<CreateSessionViewModel>(context);
     print('CandidateId: ${widget.candidateId}');
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Create Session',
-          style: TextStyle(
-            fontFamily: 'sourcesanspro_bold',
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+      appBar: GradientAppBar(
+        title: AppConstants.createSession,
+        gradient: const LinearGradient(
+          colors: [Colors.blue, Colors.purple],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       body: SingleChildScrollView(

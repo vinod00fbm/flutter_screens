@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view/candidate_list_page.dart';
 import 'package:flutter_mvvm/view/create_session.dart';
+import 'package:flutter_mvvm/view/eveluation_screen.dart';
 import 'package:flutter_mvvm/view/home_screen.dart';
 import 'package:flutter_mvvm/view/login_scree.dart';
 import '../../view/create_candidate.dart';
 import '../../view/create_job.dart';
 import '../../view/jobs_list_page.dart';
+
 // Manage routing through Route class
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -35,7 +37,12 @@ class Routes {
       case RoutesNames.createSession:
         final candidateId = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (BuildContext context) => CreateSession(candidateId: candidateId));
+            builder: (BuildContext context) =>
+                CreateSession(candidateId: candidateId));
+      case RoutesNames.assessmentReviewScreen:
+        final candidateId = settings.arguments as int;
+        return MaterialPageRoute(
+            builder: (BuildContext context) => AssessmentReviewScreen(candidateId: candidateId));
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
