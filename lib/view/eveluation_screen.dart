@@ -85,7 +85,7 @@ class AssessmentReviewScreen extends StatelessWidget {
     );
   }
 
-  Widget buildScoreSummary(Assessment assessment) {
+  Widget buildScoreSummary(Evaluation assessment) {
     return Card(
       child: Padding(
         padding: EdgeInsets.all(16.0),

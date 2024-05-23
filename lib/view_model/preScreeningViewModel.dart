@@ -5,10 +5,10 @@ import 'package:flutter_mvvm/model/questionModel.dart';
 import 'package:http/http.dart' as http;
 
 class PreScreeningViewModel extends ChangeNotifier {
-  List<QuestionsModel> questions = [];
+  //List<QuestionsModel> questions = [];
   List<QandAScoring> qaScoring = [];
   List<SkillsAssessment> skillsAssessment = [];
-  Assessment? assessment;
+  Evaluation? assessment;
 
   Future<void> submitAnswers(Map<String, String> data) async {
     var uri =
@@ -27,7 +27,7 @@ class PreScreeningViewModel extends ChangeNotifier {
         // API call was successful, handle the response data here
         print("SUCCESS:${response.body}");
         Map<String, dynamic> jsonMap = json.decode(response.body);
-        assessment = Assessment.fromJson(jsonMap);
+        assessment = AssessmentModel.fromJson(jsonMap).evaluation;
 
         // qaScoring = assessment.qandAScoring;
         // skillsAssessment = assessment.skillsAssessment;

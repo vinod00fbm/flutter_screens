@@ -1,84 +1,61 @@
+import 'dart:convert';
 
-class QuestionsModel {
-  final String question;
-  final int duration;
+AssessmentModel assessmentModelFromJson(String str) => AssessmentModel.fromJson(json.decode(str));
 
-  QuestionsModel({required this.question, required this.duration});
+String assessmentModelToJson(AssessmentModel data) => json.encode(data.toJson());
 
-  factory QuestionsModel.fromJson(Map<String, dynamic> json) {
-    return QuestionsModel(
-      question: json['question'],
-      duration: json['duration'],
-    );
-  }
-}
+class AssessmentModel {
+  Evaluation evaluation;
 
-class AnswersModel {
-  String question;
-  String answer;
-  int qt;
-  int at;
-
-  AnswersModel({
-    required this.question,
-    this.answer = '',
-    required this.qt,
-    required this.at,
+  AssessmentModel({
+    required this.evaluation,
   });
 
-  Map<String, dynamic> toJson() => {
-    'question': question,
-    'answer': answer,
-    'qt': qt,
-    'at': at,
-  };
+  factory AssessmentModel.fromJson(Map<String, dynamic> json) => AssessmentModel(
+    evaluation: Evaluation.fromJson(json["evaluation"]),
+  );
 
-  factory AnswersModel.fromJson(Map<String, dynamic> json) {
-    return AnswersModel(
-      question: json['question'],
-      answer: json['answer'] ?? '',
-      qt: json['qt'],
-      at: json['at'],
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    "evaluation": evaluation.toJson(),
+  };
 }
 
+class Evaluation {
+  int overallScore;
+  String summary;
+  String verdict;
+  List<QandAScoring> qandAScoring;
+  List<SkillsAssessment> skillsAssessment;
 
-class Assessment {
-  final int overallScore;
-  final List<QandAScoring> qandAScoring;
-  final List<SkillsAssessment> skillsAssessment;
-
-  Assessment({
+  Evaluation({
     required this.overallScore,
+    required this.summary,
+    required this.verdict,
     required this.qandAScoring,
     required this.skillsAssessment,
   });
 
-  factory Assessment.fromJson(Map<String, dynamic> json) {
-    var qandAScoringList = json['QandAScoring'] as List;
-    var skillsAssessmentList = json['skillsAssessment'] as List;
+  factory Evaluation.fromJson(Map<String, dynamic> json) => Evaluation(
+    overallScore: json["overallScore"],
+    summary: json["summary"],
+    verdict: json["verdict"],
+    qandAScoring: List<QandAScoring>.from(json["QandAScoring"].map((x) => QandAScoring.fromJson(x))),
+    skillsAssessment: List<SkillsAssessment>.from(json["skillsAssessment"].map((x) => SkillsAssessment.fromJson(x))),
+  );
 
-    return Assessment(
-      overallScore: json['overallScore'],
-      qandAScoring: qandAScoringList.map((i) => QandAScoring.fromJson(i)).toList(),
-      skillsAssessment: skillsAssessmentList.map((i) => SkillsAssessment.fromJson(i)).toList(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'overallScore': overallScore,
-      'QandAScoring': qandAScoring.map((e) => e.toJson()).toList(),
-      'skillsAssessment': skillsAssessment.map((e) => e.toJson()).toList(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "overallScore": overallScore,
+    "summary": summary,
+    "verdict": verdict,
+    "QandAScoring": List<dynamic>.from(qandAScoring.map((x) => x.toJson())),
+    "skillsAssessment": List<dynamic>.from(skillsAssessment.map((x) => x.toJson())),
+  };
 }
 
 class QandAScoring {
-  final String question;
-  final String answer;
-  final int score;
+  String question;
+  String answer;
+  int score;
 
   QandAScoring({
     required this.question,
@@ -86,43 +63,35 @@ class QandAScoring {
     required this.score,
   });
 
-  factory QandAScoring.fromJson(Map<String, dynamic> json) {
-    return QandAScoring(
-      question: json['question'],
-      answer: json['answer'],
-      score: json['score'],
-    );
-  }
+  factory QandAScoring.fromJson(Map<String, dynamic> json) => QandAScoring(
+    question: json["question"],
+    answer: json["answer"],
+    score: json["score"],
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'question': question,
-      'answer': answer,
-      'score': score,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "question": question,
+    "answer": answer,
+    "score": score,
+  };
 }
 
 class SkillsAssessment {
-  final String skill;
-  final String rating;
+  String skill;
+  String rating;
 
   SkillsAssessment({
     required this.skill,
     required this.rating,
   });
 
-  factory SkillsAssessment.fromJson(Map<String, dynamic> json) {
-    return SkillsAssessment(
-      skill: json['skill'],
-      rating: json['rating'],
-    );
-  }
+  factory SkillsAssessment.fromJson(Map<String, dynamic> json) => SkillsAssessment(
+    skill: json["skill"],
+    rating: json["rating"],
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'skill': skill,
-      'rating': rating,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "skill": skill,
+    "rating": rating,
+  };
 }
