@@ -4,7 +4,8 @@ class CandidateListModel {
   CandidateListModel({this.candidateList});
 
   factory CandidateListModel.fromJson(List<dynamic> json) {
-    List<Candidate> candidatesList = json.map((item) => Candidate.fromJson(item)).toList();
+    List<Candidate> candidatesList =
+        json.map((item) => Candidate.fromJson(item)).toList();
     return CandidateListModel(candidateList: candidatesList);
   }
 }
@@ -15,17 +16,29 @@ class Candidate {
   String? fullName;
   String? fileName;
   String? jobId;
+  String? status;
+  String? jobName;
 
-  Candidate({this.sId, this.candidateId, this.fullName, this.fileName, this.jobId});
+  Candidate(
+      {this.sId,
+      this.candidateId,
+      this.fullName,
+      this.fileName,
+      this.jobId,
+      this.status,
+      this.jobName});
 
   factory Candidate.fromJson(Map<String, dynamic> json) {
     return Candidate(
-      sId: json['_id'],
-      candidateId: json['candidateId'] is String ? int.parse(json['candidateId']) : json['candidateId'],
-      fullName: json['fullName'],
-      fileName: json['fileName'],
-      jobId: json['jobId'],
-    );
+        sId: json['_id'],
+        candidateId: json['candidateId'] is String
+            ? int.parse(json['candidateId'])
+            : json['candidateId'],
+        fullName: json['fullName'],
+        fileName: json['fileName'],
+        jobId: json['jobId'],
+        status: json['status'],
+        jobName: json['jobName']);
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +48,8 @@ class Candidate {
       'fullName': fullName,
       'fileName': fileName,
       'jobId': jobId,
+      'status': status,
+      'jobName': jobName
     };
   }
 }

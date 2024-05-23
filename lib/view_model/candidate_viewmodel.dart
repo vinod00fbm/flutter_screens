@@ -36,6 +36,8 @@ class CandidateViewModel with ChangeNotifier {
       candidateList =
           ApiResponse.completed(CandidateListModel(candidateList: candidates));
       notifyListeners();
+      print('Inside On success');
+      print(candidateList.data?.candidateList.toString());
     } catch (error) {
       candidateList = ApiResponse.error(error.toString());
       notifyListeners();

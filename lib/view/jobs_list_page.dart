@@ -74,85 +74,92 @@ class _JobListPageState extends State<JobListPage> {
           )
         ],
       ),
-      body: ChangeNotifierProvider<JobsViewModel>(
-        create: (BuildContext context) => jobsViewModel,
-        child: Consumer<JobsViewModel>(
-          builder: (context, value, child) {
-            switch (value.jobsList.status) {
-              case Status.LOADING:
-                return const Center(child: CircularProgressIndicator());
-              case Status.ERROR:
-                return Center(child: Text(value.jobsList.message.toString()));
-              case Status.COMPLETED:
-                return ListView.builder(
-                  itemCount: value.jobsList.data?.jobsList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    var job = value.jobsList.data?.jobsList?[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 150.0, vertical: 6.0),
-                      child: Card(
-                        elevation: 4.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(16.0),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Job Name:-> ${job?.jobName}' ?? 'No Job Name',
-                                style: const TextStyle(
-                                  fontFamily: 'sourcesanspro_bold',
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'Job Id:-> ${job?.jobId}' ?? 'No Job ID',
-                                style: const TextStyle(
-                                  fontFamily: 'sourcesanspro_bold',
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  maxLines: 4,
-                                  // Limit the number of lines displayed
-                                  overflow: TextOverflow.ellipsis,
-                                  'Job Description:-> ${job?.jobDesc}' ??
-                                      'No Job desc',
+      body: SingleChildScrollView(
+        child: ChangeNotifierProvider<JobsViewModel>(
+          create: (BuildContext context) => jobsViewModel,
+          child: Consumer<JobsViewModel>(
+            builder: (context, value, child) {
+              switch (value.jobsList.status) {
+                case Status.LOADING:
+                  return const Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  return Center(child: Text(value.jobsList.message.toString()));
+                case Status.COMPLETED:
+                  return ListView.builder(
+                    itemCount: value.jobsList.data?.jobsList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      var job = value.jobsList.data?.jobsList?[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 150.0, vertical: 6.0),
+                        child: Card(
+                          elevation: 4.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(16.0),
+                            title: Column(
+                              children: [
+                                Text(
+                                  'Job Name:-> ${job?.jobName}' ??
+                                      'No Job Name',
                                   style: const TextStyle(
                                     fontFamily: 'sourcesanspro_bold',
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                              Text(
-                                'Job Tye:-> ${job?.jobType}' ?? 'No Job type',
-                                style: const TextStyle(
-                                  fontFamily: 'sourcesanspro_bold',
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                              ],
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Job Id:-> ${job?.jobId}' ?? 'No Job ID',
+                                  style: const TextStyle(
+                                    fontFamily: 'sourcesanspro_bold',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                /*Expanded(
+                                  child: Text(
+                                    maxLines: 10,
+                                    // Limit the number of lines displayed
+                                    overflow: TextOverflow.ellipsis,
+                                    'Job Description:-> ${job?.jobDesc}' ??
+                                        'No Job desc',
+                                    style: const TextStyle(
+                                      fontFamily: 'sourcesanspro_bold',
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),*/
+                                Text(
+                                  'Job Tye:-> ${job?.jobType}' ?? 'No Job type',
+                                  style: const TextStyle(
+                                    fontFamily: 'sourcesanspro_bold',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              // Handle tap if needed, e.g., navigate to a detailed view
+                            },
                           ),
-                          onTap: () {
-                            // Handle tap if needed, e.g., navigate to a detailed view
-                          },
                         ),
-                      ),
-                    );
-                  },
-                );
-              default:
-                return Container(); // or some default widget
-            }
-          },
+                      );
+                    },
+                  );
+                default:
+                  return Container(); // or some default widget
+              }
+            },
+          ),
         ),
       ),
     );

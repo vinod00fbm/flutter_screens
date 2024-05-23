@@ -4,6 +4,8 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/components/Constants.dart';
+import '../utils/GradientAppBar.dart';
 import '../utils/utils.dart';
 
 class CreateJob extends StatefulWidget {
@@ -35,14 +37,12 @@ class _FormExampleState extends State<CreateJob> {
   Widget build(BuildContext context) {
     final jobsViewModel = Provider.of<JobsViewModel>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Create New Job',
-          style: TextStyle(
-            fontFamily: 'sourcesanspro_bold',
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
+      appBar: GradientAppBar(
+        title: AppConstants.createNewJob,
+        gradient: const LinearGradient(
+          colors: [Colors.blue, Colors.purple],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       body: SingleChildScrollView(
