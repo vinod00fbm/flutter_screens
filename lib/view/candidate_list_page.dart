@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/data/response/Status.dart';
+import 'package:flutter_mvvm/res/colors/app_colors.dart';
 import 'package:flutter_mvvm/res/components/Constants.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/GradientAppBar.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CandidateListPage extends StatefulWidget {
@@ -53,6 +55,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                   SizedBox(
                     width: 150.0,
                     child: RoundedButton(
+                      color: AppColors.green,
                       title: AppConstants.createCandidate,
                       onPress: () {
                         Navigator.pushNamed(context, RoutesNames.createCandidate);
@@ -63,6 +66,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                   SizedBox(
                     width: 150.0,
                     child: RoundedButton(
+                      color: AppColors.orange,
                       title: AppConstants.createJob,
                       onPress: () {
                         Navigator.pushNamed(context, RoutesNames.createJob);
@@ -73,6 +77,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                   SizedBox(
                     width: 150.0,
                     child: RoundedButton(
+                      color: AppColors.teal,
                       title: AppConstants.jobList,
                       onPress: () {
                         Navigator.pushNamed(context, RoutesNames.jobsList);
@@ -106,6 +111,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(1.0),
                                 ),
+                                color: AppColors.white,
                                 child: ListTile(
                                   contentPadding: const EdgeInsets.all(1.0),
                                   leading: CircleAvatar(
@@ -120,16 +126,17 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                       Text(
                                         '${candidate?.fullName}' ?? 'No Name',
                                         style: const TextStyle(
-                                          fontFamily: 'sourcesanspro_bold',
+                                            fontFamily: 'Roboto-Regular',
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
+                                          color: AppColors.orange
                                         ),
                                       ),
                                       Text(
                                         'File Name:-> ${candidate?.fileName}' ??
                                             'No File Name',
                                         style: const TextStyle(
-                                          fontFamily: 'sourcesanspro_regular',
+                                          fontFamily: 'Roboto-Regular',
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -138,7 +145,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                       Text(
                                         'Job Name:-> ${candidate?.jobId?.toString() ?? 'No Job ID'} - ${candidate?.jobName ?? 'No Job Name'}',
                                         style: const TextStyle(
-                                          fontFamily: 'sourcesanspro_regular',
+                                          fontFamily: 'Roboto-Regular',
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -148,7 +155,7 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                         'Status:-> ${candidate?.status?.toString()}' ??
                                             'No ID',
                                         style: TextStyle(
-                                          fontFamily: 'sourcesanspro_regular',
+                                          fontFamily: 'Roboto-Regular',
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                           color: candidate?.status ==
@@ -189,9 +196,6 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                                 Navigator.pushNamed(context,
                                                     RoutesNames.assessmentReviewScreen,arguments:
                                                     candidate!.candidateId);
-                                              /*  Map<String,String> data =  {
-                                                  'candidateId' : candidate?.candidateId
-                                                };*/
                                               },
                                               child:
                                                   const Text('View Evaluation'),

@@ -6,6 +6,7 @@ import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
 import 'package:flutter_mvvm/view_model/createsession_viewmodel.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
 import 'package:flutter_mvvm/view_model/preScreeningViewModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          fontFamily: 'Roboto-Bold',
         ),
         initialRoute: RoutesNames.candidateList,
         onGenerateRoute: Routes.generateRoute,

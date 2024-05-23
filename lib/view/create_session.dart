@@ -106,10 +106,19 @@ class _CreateSessionState extends State<CreateSession> {
                     createSessionViewModel.createSessionWithQueryParam(data, context);
                   }
                 },
-              )
+              ),
+              if (createSessionViewModel.isLoading)
+                Positioned.fill(
+                  child: Container(
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
+
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -67,5 +68,11 @@ class Utils {
   static int randomNumberGenerator(BuildContext context) {
     Random random = Random();
     return random.nextInt(90000) + 1000;
+  }
+
+  static void printLogs(String message){
+    if (kDebugMode) {
+      print(message);
+    }
   }
 }

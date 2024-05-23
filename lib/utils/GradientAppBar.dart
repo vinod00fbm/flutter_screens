@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/res/colors/app_colors.dart';
 
 class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -28,6 +29,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontFamily: 'sourcesanspro_bold',
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
+            color: AppColors.white
           ),),
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove shadow if needed

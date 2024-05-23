@@ -18,14 +18,20 @@ class CandidateViewModel with ChangeNotifier {
   // Create new candidate
   Future<void> createCandidate(dynamic data, BuildContext context,PlatformFile? filePath) async {
     _myRepo.createCandidate(data,filePath).then((value) {
-      print(value.toString());
-      print('Inside On success');
+      Utils.printLogs(value.toString());
+      Utils.printLogs('Inside On success');
       Utils.showFlushBarErrorMessage(value.toString(), context);
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
       //Navigator.pushNamed(context, RoutesNames.home);
     }).onError((error, stackTrace) {
       print('Inside On error');
-      Utils.showFlushBarErrorMessage(error.toString(), context);
-      print(error.toString());
+      Utils.showFlushBarErrorMessage('Failed to create candidate', context);
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
+      Utils.printLogs(error.toString());
     });
   }
 
@@ -36,7 +42,7 @@ class CandidateViewModel with ChangeNotifier {
       candidateList =
           ApiResponse.completed(CandidateListModel(candidateList: candidates));
       notifyListeners();
-      print('Inside On success');
+      Utils.printLogs('Inside On success');
       print(candidateList.data?.candidateList.toString());
     } catch (error) {
       candidateList = ApiResponse.error(error.toString());

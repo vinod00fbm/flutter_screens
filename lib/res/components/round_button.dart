@@ -5,12 +5,14 @@ class RoundedButton extends StatelessWidget {
   final String title;
   final bool loading;
   final VoidCallback onPress;
+  final Color? color;
 
   const RoundedButton(
       {super.key,
       required this.title,
       this.loading = false,
-      required this.onPress});
+      required this.onPress,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class RoundedButton extends StatelessWidget {
         height: 40,
         width: 300,
         decoration: BoxDecoration(
-            color: AppColors.buttonColor,
+            color: color ?? AppColors.green,
             borderRadius: BorderRadius.circular(12)),
         child: Center(
             child: Text(
