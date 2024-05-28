@@ -3,6 +3,8 @@ import 'package:flutter_mvvm/data/response/Status.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:provider/provider.dart';
+import '../res/components/Constants.dart';
+import '../utils/GradientAppBar.dart';
 import '../view_model/jobs_viewmodel.dart';
 
 class JobListPage extends StatefulWidget {
@@ -26,52 +28,13 @@ class _JobListPageState extends State<JobListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(),
-            Spacer(),
-            SizedBox(
-              width: 250.0,
-            ),
-            Text(
-              'Jobs List',
-              style: TextStyle(
-                fontFamily: 'sourcesanspro_bold',
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Spacer(),
-          ],
+      appBar: GradientAppBar(
+        title: AppConstants.jobList,
+        gradient: const LinearGradient(
+          colors: [Colors.blue, Colors.purple],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        actions: [
-          SizedBox(
-            width: 150.0,
-            child: RoundedButton(
-              title: 'Create Candidate',
-              onPress: () {
-                Navigator.pushNamed(context, RoutesNames.createCandidate);
-              },
-            ),
-          ),
-          const SizedBox(
-            width: 25.0,
-          ),
-          SizedBox(
-            width: 150.0,
-            child: RoundedButton(
-              title: 'Create Job',
-              onPress: () {
-                Navigator.pushNamed(context, RoutesNames.createJob);
-              },
-            ),
-          ),
-          const SizedBox(
-            width: 120.0,
-          )
-        ],
       ),
       body: ChangeNotifierProvider<JobsViewModel>(
         create: (BuildContext context) => jobsViewModel,
@@ -85,6 +48,35 @@ class _JobListPageState extends State<JobListPage> {
               case Status.COMPLETED:
                 return Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 150.0,
+                            child: RoundedButton(
+                              title: 'Create Candidate',
+                              onPress: () {
+                                Navigator.pushNamed(
+                                    context, RoutesNames.createCandidate);
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 25.0),
+                          SizedBox(
+                            width: 150.0,
+                            child: RoundedButton(
+                              title: 'Create Job',
+                              onPress: () {
+                                Navigator.pushNamed(
+                                    context, RoutesNames.createJob);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: value.jobsList.data?.jobsList?.length ?? 0,
@@ -92,7 +84,7 @@ class _JobListPageState extends State<JobListPage> {
                           var job = value.jobsList.data?.jobsList?[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 150.0, vertical: 6.0),
+                                horizontal: 16.0, vertical: 6.0),
                             child: Card(
                               elevation: 4.0,
                               shape: RoundedRectangleBorder(
@@ -100,45 +92,27 @@ class _JobListPageState extends State<JobListPage> {
                               ),
                               child: ListTile(
                                 contentPadding: const EdgeInsets.all(16.0),
-                                title: Column(
-                                  children: [
-                                    Text(
-                                      'Job Name:-> ${job?.jobName}',
-                                      style: const TextStyle(
-                                        fontFamily: 'sourcesanspro_bold',
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                title: Text(
+                                  'Job Name: ${job?.jobName ?? 'No Job Name'}',
+                                  style: const TextStyle(
+                                    fontFamily: 'sourcesanspro_bold',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Job Id:-> ${job?.jobId}',
+                                      'Job Id: ${job?.jobId ?? 'No Job ID'}',
                                       style: const TextStyle(
                                         fontFamily: 'sourcesanspro_bold',
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    /*Expanded(
-                                    child: Text(
-                                      maxLines: 10,
-                                      // Limit the number of lines displayed
-                                      overflow: TextOverflow.ellipsis,
-                                      'Job Description:-> ${job?.jobDesc}' ??
-                                          'No Job desc',
-                                      style: const TextStyle(
-                                        fontFamily: 'sourcesanspro_bold',
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),*/
                                     Text(
-                                      'Job Tye:-> ${job?.jobType}',
+                                      'Job Type: ${job?.jobType ?? 'No Job Type'}',
                                       style: const TextStyle(
                                         fontFamily: 'sourcesanspro_bold',
                                         fontSize: 16.0,
