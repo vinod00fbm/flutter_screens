@@ -12,4 +12,5 @@ class AppColors {
   static const Color teal = Color(0xFF4FC3F7);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
+  static const Color borderColor = Color(0xFF1E88E5);
 }

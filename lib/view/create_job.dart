@@ -4,6 +4,7 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/colors/app_colors.dart';
 import '../res/components/Constants.dart';
 import '../utils/GradientAppBar.dart';
 import '../utils/utils.dart';
@@ -52,8 +53,17 @@ class _FormExampleState extends State<CreateJob> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const SizedBox(
+                height: 20.0,
+              ),
               TextFormField(
                 decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColors.borderColor)),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColors.borderColor)),
                   labelText: 'Job Title*',
                 ),
                 validator: (value) {
@@ -66,6 +76,9 @@ class _FormExampleState extends State<CreateJob> {
                   _name = value!;
                 },
               ),
+              const SizedBox(
+                height: 20.0,
+              ),
               GestureDetector(
                 onTap: () {
                   _showJobLocationDropdown(context);
@@ -73,6 +86,12 @@ class _FormExampleState extends State<CreateJob> {
                 child: AbsorbPointer(
                   child: TextFormField(
                     decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2, color: AppColors.borderColor)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2, color: AppColors.borderColor)),
                       labelText: 'Location Type*',
                       suffixIcon: Icon(Icons.arrow_drop_down),
                     ),
@@ -89,6 +108,9 @@ class _FormExampleState extends State<CreateJob> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20.0,
+              ),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -96,6 +118,12 @@ class _FormExampleState extends State<CreateJob> {
                     child: TextFormField(
                       maxLines: null,
                       decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2, color: AppColors.borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2, color: AppColors.borderColor)),
                         labelText: 'Description',
                       ),
                       validator: (value) {

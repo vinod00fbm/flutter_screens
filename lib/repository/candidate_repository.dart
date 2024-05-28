@@ -1,31 +1,15 @@
-import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
-import 'package:http/http.dart';
-
 import 'package:flutter_mvvm/model/candidate_list_model.dart';
+import 'package:flutter_mvvm/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 import '../data/network/BaseApiService.dart';
 import '../data/network/NetworkApiService.dart';
+import '../model/JobNameList.dart';
 import '../res/components/app_url.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 class CandidateRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
-
-  /* Future<dynamic> createCandidate(dynamic data,String? filePath) async {
-    try {
-      dynamic response =
-      await _apiServices.getPostApiResponse(AppUrls.createCandidate, data);
-      return response;
-    } catch (e) {
-      print('$e');
-      rethrow;
-    }
-  }*/
-
-  //Using bytes instead of file path
-  //request.files.add(http.MultipartFile.fromBytes(       'file',       file.bytes!,       filename: file.name,     ));
 
   Future<dynamic> createCandidate(dynamic data, PlatformFile? filePath) async {
     try {
@@ -36,10 +20,10 @@ class CandidateRepository {
           filename: filePath.name));
       request.fields.addAll(data);
       var response = await request.send();
-      if (response.statusCode == 200) {
-        print('File uploaded successfully');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Utils.printLogs('File uploaded successfully');
       } else {
-        print('File upload failed with status: ${response.statusCode}');
+        Utils.printLogs('File upload failed with status: ${response.statusCode}');
       }
     } catch (e) {
       print('$e');
@@ -55,8 +39,22 @@ class CandidateRepository {
       List<dynamic> responseList = response as List<dynamic>;
       List<Candidate> candidates =
           responseList.map((item) => Candidate.fromJson(item)).toList();
-      print("candidate List $candidates");
+      Utils.printLogs("candidate List $candidates");
       return candidates;
+    } catch (e) {
+      print('$e');
+      rethrow;
+    }
+  }
+
+  Future<List<Jobs>> getJobs() async {
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(AppUrls.getJobs);
+      List<dynamic> responseList = response as List<dynamic>;
+      List<Jobs> jobs =
+          responseList.map((item) => Jobs.fromJson(item)).toList();
+      Utils.printLogs("Jobs List $jobs");
+      return jobs;
     } catch (e) {
       print('$e');
       rethrow;

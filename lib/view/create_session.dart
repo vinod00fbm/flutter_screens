@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
+import 'package:flutter_mvvm/utils/utils.dart';
 import 'package:flutter_mvvm/view_model/createsession_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/colors/app_colors.dart';
 import '../res/components/Constants.dart';
 import '../utils/GradientAppBar.dart';
 
@@ -46,7 +48,11 @@ class _CreateSessionState extends State<CreateSession> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Duration*'),
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: AppColors.borderColor)),labelText: 'Duration*'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter duration';
@@ -59,7 +65,11 @@ class _CreateSessionState extends State<CreateSession> {
               ),
               TextFormField(
                 decoration:
-                    const InputDecoration(labelText: 'Number of Questions*'),
+                    const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: AppColors.borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: AppColors.borderColor)),labelText: 'Number of Questions*'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter number of questions';
@@ -72,7 +82,10 @@ class _CreateSessionState extends State<CreateSession> {
               ),
               TextFormField(
                 controller: _dateController,
-                decoration: const InputDecoration(labelText: 'Select Date*'),
+                decoration: const InputDecoration(enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: AppColors.borderColor)),labelText: 'Select Date*'),
                 readOnly: true,
                 onTap: () {
                   _selectDate(context);
@@ -102,17 +115,15 @@ class _CreateSessionState extends State<CreateSession> {
                       'numberOfQuestions': _numberOfQuestions,
                       'date': _selectedDate!.millisecondsSinceEpoch.toString()
                     };
-                    print('CreateSession ${ 'Duration: '+ _duration +' No of questions: '+ _numberOfQuestions + ' Selected Date: '+ _selectedDate!.millisecondsSinceEpoch.toString() }');
+                    Utils.printLogs('CreateSession ${ 'Duration: '+ _duration +' No of questions: '+ _numberOfQuestions + ' Selected Date: '+ _selectedDate!.millisecondsSinceEpoch.toString() }');
                     createSessionViewModel.createSessionWithQueryParam(data, context);
                   }
                 },
               ),
               if (createSessionViewModel.isLoading)
-                Positioned.fill(
-                  child: Container(
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                const Positioned.fill(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
             ],

@@ -3,6 +3,8 @@ import 'dart:html';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mvvm/model/JobNameList.dart';
+import 'package:flutter_mvvm/res/colors/app_colors.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +21,12 @@ class CandidatePage extends StatefulWidget {
 }
 
 class _CandidatePageState extends State<CandidatePage> {
-  final _candidateformKey = GlobalKey<FormState>();
+  final _candidateFormKey = GlobalKey<FormState>();
   String _name = '';
   String _contact = '';
   String _email = '';
   String _jobName = '';
+  int _jobId = 0;
 
   String? selectedFilePath;
   bool isLoading = false;
@@ -31,6 +34,16 @@ class _CandidatePageState extends State<CandidatePage> {
   String? _fileName;
   PlatformFile? pickedFile;
   File? fileToDisplay;
+
+  List<JobNameList> jobNames = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final candidateViewModel =
+        Provider.of<CandidateViewModel>(context, listen: false);
+    candidateViewModel.getJobs(context);
+  }
 
   Future<void> pickFile() async {
     try {
@@ -45,20 +58,21 @@ class _CandidatePageState extends State<CandidatePage> {
         pickedFile = result!.files.first;
         selectedFilePath = result!.files.first.path;
         // fileToDisplay = File(pickedFile!.path.toString());
-        print('File Name $_fileName');
+        Utils.printLogs('File Name $_fileName');
       }
 
       setState(() {
         isLoading = false;
       });
     } catch (e) {
-      print('Error:$e');
+      Utils.printLogs('Error:$e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final candidateViewModel = Provider.of<CandidateViewModel>(context);
+    final jobsResponse = candidateViewModel.jobsList;
     return Scaffold(
       appBar: GradientAppBar(
         title: AppConstants.candidateForm,
@@ -71,12 +85,20 @@ class _CandidatePageState extends State<CandidatePage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 100.0),
         child: Form(
-          key: _candidateformKey,
+          key: _candidateFormKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20.0),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Candidate Name*'),
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    labelText: 'Candidate Name*'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter your name';
@@ -89,7 +111,14 @@ class _CandidatePageState extends State<CandidatePage> {
               ),
               const SizedBox(height: 20.0),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Contact Number*'),
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    labelText: 'Contact Number*'),
                 keyboardType: TextInputType.phone,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
@@ -107,7 +136,14 @@ class _CandidatePageState extends State<CandidatePage> {
               ),
               const SizedBox(height: 20.0),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
@@ -125,11 +161,18 @@ class _CandidatePageState extends State<CandidatePage> {
               const SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () {
-                  _showJobNameDropdown(context);
+                  //_showJobNameDropdown(context);
+                  _showJobNameDropdown(context, jobsResponse.data!.jobsList!);
                 },
                 child: AbsorbPointer(
                   child: TextFormField(
                     decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2, color: AppColors.borderColor)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2, color: AppColors.borderColor)),
                       labelText: 'Job Name',
                       suffixIcon: Icon(Icons.arrow_drop_down),
                     ),
@@ -149,37 +192,48 @@ class _CandidatePageState extends State<CandidatePage> {
               const SizedBox(height: 20.0),
               TextButton(
                 onPressed: () async {
-                  pickFile();
-
+                  await pickFile();
+                  setState(() {
+                    isLoading = false;
+                  });
                   if (pickedFile != null) {
                     SizedBox(
                       height: 300,
                       width: 400,
-                      child: Text('picked file: $pickedFile'),
+                      child: Text(
+                        'picked file: $pickedFile',
+                        style: const TextStyle(
+                          fontFamily: 'sourcesanspro_bold',
+                        ),
+                      ),
                     );
                   }
                 },
-                child: const Text('Upload Resume'),
+                child: isLoading
+                    ? const CircularProgressIndicator() // show loading indicator
+                    : const Text('Upload Resume'),
               ),
               const SizedBox(height: 20.0),
               _fileName != null
                   ? Text(
-                      'Selected File: $_fileName',
+                      'File Name: $_fileName',
                       style: const TextStyle(fontSize: 16.0),
                     )
                   : Container(),
+              const SizedBox(height: 20.0),
               RoundedButton(
                 title: "Submit Candidate",
                 onPress: () {
-                  if (_candidateformKey.currentState?.validate() ?? false) {
-                    _candidateformKey.currentState?.save();
+                  if (_candidateFormKey.currentState?.validate() ?? false) {
+                    _candidateFormKey.currentState?.save();
                     // Do something with the form data, like submit it
-                    print('fullName: $_name');
-                    print('JobName: $_jobName');
-                    print('Email: $_email');
-                    print('Contact: $_contact');
+                    Utils.printLogs('fullName: $_name');
+                    Utils.printLogs('JobName: $_jobName');
+                    Utils.printLogs('Email: $_email');
+                    Utils.printLogs('Contact: $_contact');
+                    Utils.printLogs('Job Id: $_jobId');
                     Map<String, String> data = {
-                      'jobId': '1716284582791',
+                      'jobId': _jobId.toString(),
                       'fullName': _name,
                       'email': _email
                     };
@@ -203,16 +257,7 @@ class _CandidatePageState extends State<CandidatePage> {
     return emailRegex.hasMatch(email);
   }
 
-  final List<String> _jobNames = [
-    'Client Partner',
-    'UI Developer',
-    'QA Analyst',
-    'Application Engineer',
-    'Treasury App Support',
-    'Dot Net Lead',
-  ];
-
-  void _showJobNameDropdown(BuildContext context) {
+  void _showJobNameDropdown(BuildContext context, List<Jobs> jobNames) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -220,12 +265,13 @@ class _CandidatePageState extends State<CandidatePage> {
           title: const Text('Select Job Name'),
           content: SingleChildScrollView(
             child: Column(
-              children: _jobNames.map((jobName) {
+              children: jobNames.map((job) {
                 return ListTile(
-                  title: Text(jobName),
+                  title: Text(job.jobName as String),
                   onTap: () {
                     setState(() {
-                      _jobName = jobName;
+                      _jobName = job.jobName!;
+                      _jobId = job.jobId!;
                     });
                     Navigator.of(context).pop();
                   },

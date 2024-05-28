@@ -8,7 +8,6 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/GradientAppBar.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CandidateListPage extends StatefulWidget {
@@ -20,8 +19,6 @@ class CandidateListPage extends StatefulWidget {
 
 class _CandidateListPageState extends State<CandidateListPage> {
   CandidateViewModel candidateViewModel = CandidateViewModel();
-
-  var status;
 
   @override
   void initState() {
@@ -58,7 +55,8 @@ class _CandidateListPageState extends State<CandidateListPage> {
                       color: AppColors.green,
                       title: AppConstants.createCandidate,
                       onPress: () {
-                        Navigator.pushNamed(context, RoutesNames.createCandidate);
+                        Navigator.pushNamed(
+                            context, RoutesNames.createCandidate);
                       },
                     ),
                   ),
@@ -94,7 +92,8 @@ class _CandidateListPageState extends State<CandidateListPage> {
                         return const Center(child: CircularProgressIndicator());
                       case Status.ERROR:
                         return Center(
-                            child: Text(value.candidateList.message.toString()));
+                            child:
+                                Text(value.candidateList.message.toString()));
                       case Status.COMPLETED:
                         return ListView.builder(
                           itemCount:
@@ -121,27 +120,26 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                     ),
                                   ),
                                   subtitle: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${candidate?.fullName}' ?? 'No Name',
+                                        '${candidate?.fullName}',
                                         style: const TextStyle(
                                             fontFamily: 'Roboto-Regular',
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.orange
-                                        ),
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.orange),
                                       ),
                                       Text(
-                                        'File Name:-> ${candidate?.fileName}' ??
-                                            'No File Name',
+                                        'File Name:-> ${candidate?.fileName}',
                                         style: const TextStyle(
                                           fontFamily: 'Roboto-Regular',
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(width: 30.0),
+                                      const SizedBox(width: 30.0),
                                       Text(
                                         'Job Name:-> ${candidate?.jobId?.toString() ?? 'No Job ID'} - ${candidate?.jobName ?? 'No Job Name'}',
                                         style: const TextStyle(
@@ -150,27 +148,29 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(width: 30.0),
+                                      const SizedBox(width: 30.0),
                                       Text(
-                                        'Status:-> ${candidate?.status?.toString()}' ??
-                                            'No ID',
+                                        'Status:-> ${candidate?.status?.toString()}',
                                         style: TextStyle(
                                           fontFamily: 'Roboto-Regular',
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                           color: candidate?.status ==
-                                                  AppConstants.CANDIDATE_SELECTED
+                                                  AppConstants
+                                                      .CANDIDATE_SELECTED
                                               ? Colors.green
                                               : candidate?.status ==
                                                       AppConstants
                                                           .CANDIDATE_REJECTED
                                                   ? Colors.red
-                                                  : Colors.black, // Default color
+                                                  : Colors
+                                                      .black, // Default color
                                         ),
                                       ),
                                       const SizedBox(height: 10.0),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           if (candidate?.status ==
                                               AppConstants.SESSION_CREATED)
@@ -182,20 +182,24 @@ class _CandidateListPageState extends State<CandidateListPage> {
                                                     arguments:
                                                         candidate!.candidateId);
                                               },
-                                              child: const Text('Create Session'),
+                                              child:
+                                                  const Text('Create Session'),
                                             ),
                                           if (candidate?.status ==
                                               AppConstants.SESSION_CREATED)
                                             const SizedBox(width: 8.0),
                                           // Spacing between buttons
-                                          /*if (candidate?.status ==
-                                              AppConstants.EVALUATION_COMPLETED)*/
+                                          if (candidate?.status ==
+                                              AppConstants.EVALUATION_COMPLETED)
                                             ElevatedButton(
                                               onPressed: () {
                                                 // Navigate to view evaluation
-                                                Navigator.pushNamed(context,
-                                                    RoutesNames.assessmentReviewScreen,arguments:
-                                                    candidate!.candidateId);
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    RoutesNames
+                                                        .assessmentReviewScreen,
+                                                    arguments:
+                                                        candidate!.candidateId);
                                               },
                                               child:
                                                   const Text('View Evaluation'),

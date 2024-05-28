@@ -1,11 +1,11 @@
-class JobsListModel {
+class JobNameList {
   List<Jobs>? jobsList;
 
-  JobsListModel({this.jobsList});
+  JobNameList({this.jobsList});
 
-  factory JobsListModel.fromJson(List<dynamic> json) {
+  factory JobNameList.fromJson(List<dynamic> json) {
     List<Jobs> jobsList = json.map((item) => Jobs.fromJson(item)).toList();
-    return JobsListModel(jobsList: jobsList);
+    return JobNameList(jobsList: jobsList);
   }
 }
 
@@ -13,17 +13,15 @@ class Jobs {
   String? sId;
   int? jobId;
   String? jobName;
-  String? jobDesc;
   String? jobType;
 
-  Jobs({this.sId, this.jobId, this.jobName, this.jobDesc, this.jobType});
+  Jobs({this.sId, this.jobId, this.jobName, this.jobType});
 
   factory Jobs.fromJson(Map<String, dynamic> json) {
     return Jobs(
         sId: json['_id'],
         jobId: json['jobId'],
         jobName: json['jobName'],
-        jobDesc: json['jobDesc'],
         jobType: json['jobType']);
   }
 
@@ -32,13 +30,12 @@ class Jobs {
       '_id': sId,
       'jobId': jobId,
       'jobName': jobName,
-      'jobDesc': jobDesc,
       'jobType': jobType,
     };
   }
 
   @override
   String toString() {
-    return 'Jobs{sId: $sId, jobId: $jobId, jobName: $jobName, jobDesc: $jobDesc, jobType: $jobType}';
+    return 'Job{jobId: $jobId, jobName: $jobName}';
   }
 }

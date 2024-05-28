@@ -5,7 +5,6 @@ import 'package:flutter_mvvm/model/questionModel.dart';
 import 'package:http/http.dart' as http;
 
 class PreScreeningViewModel extends ChangeNotifier {
-  //List<QuestionsModel> questions = [];
   List<QandAScoring> qaScoring = [];
   List<SkillsAssessment> skillsAssessment = [];
   Evaluation? assessment;

@@ -5,6 +5,7 @@ import 'package:flutter_mvvm/utils/utils.dart';
 import 'package:flutter_mvvm/view_model/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../res/colors/app_colors.dart';
 import '../utils/routes/routes_names.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -37,10 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height * 1;
+    final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -61,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding:  const EdgeInsets.symmetric(horizontal: 100.0),
+              padding: const EdgeInsets.symmetric(horizontal: 100.0),
               child: TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -71,6 +69,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       context, _emailFocusNode, _passwordFocusNode);
                 },
                 decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
+                    border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColors.borderColor)),
                     hintText: "Email",
                     labelText: 'Email',
                     prefixIcon: Icon(Icons.alternate_email)),
@@ -87,6 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: _obsecurePassword.value,
                       obscuringCharacter: '*',
                       decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2, color: AppColors.borderColor)),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2, color: AppColors.borderColor)),
                           hintText: "Password",
                           labelText: 'Password',
                           prefixIcon: Icon(Icons.password)),
