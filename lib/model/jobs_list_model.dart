@@ -15,8 +15,15 @@ class Jobs {
   String? jobName;
   String? jobDesc;
   String? jobType;
+  String? jobsId;
 
-  Jobs({this.sId, this.jobId, this.jobName, this.jobDesc, this.jobType});
+  Jobs(
+      {this.sId,
+      this.jobId,
+      this.jobName,
+      this.jobDesc,
+      this.jobType,
+      this.jobsId});
 
   factory Jobs.fromJson(Map<String, dynamic> json) {
     return Jobs(
@@ -24,7 +31,8 @@ class Jobs {
         jobId: json['jobId'],
         jobName: json['jobName'],
         jobDesc: json['jobDesc'],
-        jobType: json['jobType']);
+        jobType: json['jobType'],
+        jobsId: json['jobsId']);
   }
 
   Map<String, dynamic> toJson() {
@@ -34,11 +42,12 @@ class Jobs {
       'jobName': jobName,
       'jobDesc': jobDesc,
       'jobType': jobType,
+      'jobsId': jobsId,
     };
   }
 
   @override
   String toString() {
-    return 'Jobs{sId: $sId, jobId: $jobId, jobName: $jobName, jobDesc: $jobDesc, jobType: $jobType}';
+    return 'Jobs{sId: $sId, jobId: $jobId, jobName: $jobName, jobDesc: $jobDesc, jobType: $jobType,jobsId: $jobsId}';
   }
 }

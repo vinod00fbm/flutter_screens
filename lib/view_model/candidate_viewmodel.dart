@@ -67,7 +67,7 @@ class CandidateViewModel with ChangeNotifier {
       Utils.printLogs('Inside On get jobs');
       Utils.printLogs(jobs.toString());
       notifyListeners();
-      Utils.showFlushBarErrorMessage(jobs.toString(), context);
+      //Utils.showFlushBarErrorMessage(jobs.toString(), context);
       setJobsList(ApiResponse.completed(JobNameList(jobsList: jobs)));
       //Navigator.pushNamed(context, RoutesNames.home);
     } catch (error) {

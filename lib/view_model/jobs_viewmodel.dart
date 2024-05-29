@@ -11,43 +11,42 @@ class JobsViewModel with ChangeNotifier {
 
   Future<void> createJob(dynamic data, BuildContext context) async {
     _myRepo.createJob(data).then((value) {
-      print(value.toString());
-      print('Inside On success');
-      Utils.showFlushBarErrorMessage(value.toString(), context);
+      Utils.printLogs(value.toString());
+      Utils.printLogs('Inside On success');
+      Utils.showFlushBarSuccessMessage(value.toString(), context);
       Navigator.pushNamed(context, RoutesNames.createCandidate);
     }).onError((error, stackTrace) {
-      print('Inside On error');
+      Utils.printLogs('Inside On error');
       Utils.showFlushBarErrorMessage(error.toString(), context);
-      print(error.toString());
+      Utils.printLogs(error.toString());
     });
   }
 
   ApiResponse<JobsListModel> jobsList = ApiResponse.loading();
 
-  setJobList(ApiResponse<JobsListModel> response) {
+  void _setJobList(ApiResponse<JobsListModel> response) {
     jobsList = response;
     notifyListeners();
   }
+
   Future<void> getJobs(BuildContext context) async {
-    _myRepo.getJobs().then((value) {
-      print(value.toString());
-      print('Inside On get jobs');
-      Utils.showFlushBarErrorMessage(value.toString(), context);
-      //Navigator.pushNamed(context, RoutesNames.home);
-    }).onError((error, stackTrace) {
-      print('Inside On error get jobs');
-      Utils.showFlushBarErrorMessage(error.toString(), context);
-      print(error.toString());
-    });
+    try {
+      var jobs = await _myRepo.getJobs();
+      Utils.printLogs('Inside On success job list');
+      _setJobList(ApiResponse.completed(JobsListModel(jobsList: jobs)));
+    } catch (error) {
+      Utils.printLogs('Inside On Error job list: $error');
+      _setJobList(ApiResponse.error(error.toString()));
+    }
   }
 
   Future<void> generateJobDescription(
       dynamic data, BuildContext context) async {
     _myRepo.generateJobDescription(data).then((value) {
-      print(value.toString());
-      print('Inside generate JobDescription');
+      Utils.printLogs(value.toString());
+      Utils.printLogs('Inside generate JobDescription');
     }).onError((error, stackTrace) {
-      print('Inside On error generate JobDescription');
+      Utils.printLogs('Inside On error generate JobDescription');
     });
   }
 }

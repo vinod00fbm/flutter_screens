@@ -1,6 +1,3 @@
-import 'dart:js';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/model/questionModel.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +14,18 @@ class AssessmentReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final createSessionViewModel =
         Provider.of<PreScreeningViewModel>(context as BuildContext);
-    Map<String, String> data = {'candidateId': '1716284683481' }; //candidateId.toString()
+    Map<String, String> data = {
+      'candidateId': '1716284683481'
+    }; //candidateId.toString()
     createSessionViewModel.submitAnswers(data);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {},
         ),
-        title: Text('DSA Coding Conassessments - January 23'),
-        actions: [
+        title: const Text('DSA Coding Conassessments - January 23'),
+        actions: const [
           CircleAvatar(
             child: Icon(Icons.person),
           ),
@@ -35,25 +34,25 @@ class AssessmentReviewScreen extends StatelessWidget {
       body: Consumer<PreScreeningViewModel>(
         builder: (context, viewModel, child) {
           if (viewModel.assessment == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           final assessment = viewModel.assessment!;
           return SingleChildScrollView(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildCandidateInfo(),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 buildScoreSummary(assessment),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 buildSpotlightSection(assessment.skillsAssessment),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 buildProctoringSection(),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 buildQandAScoring(assessment.qandAScoring),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 buildDetailsSubmissionReport(),
               ],
             ),
@@ -67,18 +66,18 @@ class AssessmentReviewScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           'Bobby Williams (aka: Workable Octobriana)',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         Row(
           children: [
-            IconButton(icon: Icon(Icons.report), onPressed: () {}),
-            IconButton(icon: Icon(Icons.copy), onPressed: () {}),
-            ElevatedButton(onPressed: () {}, child: Text('Shortlist')),
-            SizedBox(width: 8),
+            IconButton(icon: const Icon(Icons.report), onPressed: () {}),
+            IconButton(icon: const Icon(Icons.copy), onPressed: () {}),
+            ElevatedButton(onPressed: () {}, child: const Text('Shortlist')),
+            const SizedBox(width: 8),
             ElevatedButton(
-                onPressed: () {}, child: Text('Start Instant Interview')),
+                onPressed: () {}, child: const Text('Start Instant Interview')),
           ],
         ),
       ],
@@ -88,7 +87,7 @@ class AssessmentReviewScreen extends StatelessWidget {
   Widget buildScoreSummary(Evaluation assessment) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Row(
@@ -111,12 +110,12 @@ class AssessmentReviewScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 4),
         Text(score,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
-        Text(subtitle, style: TextStyle(color: Colors.grey)),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 4),
+        Text(subtitle, style: const TextStyle(color: Colors.grey)),
       ],
     );
   }
@@ -125,12 +124,12 @@ class AssessmentReviewScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Global Benchmarking',
+        const Text('Global Benchmarking',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
-        Text('Top 10% out of 175,020 candidates',
+        const SizedBox(height: 4),
+        const Text('Top 10% out of 175,020 candidates',
             style: TextStyle(fontSize: 16)),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Container(
           height: 20,
           width: 200,
@@ -186,18 +185,18 @@ class AssessmentReviewScreen extends StatelessWidget {
 
   Widget buildSpotlightCard(String title, String content, Color color) {
     return Container(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: Card(
         color: color,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              Text(content, style: TextStyle(fontSize: 14)),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Text(content, style: const TextStyle(fontSize: 14)),
             ],
           ),
         ),
@@ -208,7 +207,7 @@ class AssessmentReviewScreen extends StatelessWidget {
   Widget buildProctoringSection() {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -229,8 +228,8 @@ class AssessmentReviewScreen extends StatelessWidget {
         Text(value,
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: color)),
-        SizedBox(height: 4),
-        Text(title, style: TextStyle(fontSize: 14)),
+        const SizedBox(height: 4),
+        Text(title, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
@@ -239,28 +238,28 @@ class AssessmentReviewScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Q&A Scoring',
+        const Text('Q&A Scoring',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Column(
           children: qandAScoring.map((qa) {
             return Card(
-              margin: EdgeInsets.symmetric(vertical: 8.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
               // Add vertical margin for spacing between cards
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Question: ${qa.question}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text('Answer: ${qa.answer}',
-                        style: TextStyle(fontSize: 14)),
-                    SizedBox(height: 8),
+                        style: const TextStyle(fontSize: 14)),
+                    const SizedBox(height: 8),
                     Text('Score: ${qa.score}',
-                        style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        style: const TextStyle(fontSize: 14, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -275,9 +274,9 @@ class AssessmentReviewScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Details submission report',
+        const Text('Details submission report',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         buildQuestionReport(
             'Computer Networking',
             '5min / 10min',
@@ -298,7 +297,7 @@ class AssessmentReviewScreen extends StatelessWidget {
       String details, String totalScore) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -307,18 +306,18 @@ class AssessmentReviewScreen extends StatelessWidget {
               children: [
                 Text(title,
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Text('Score: $totalScore',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
             // SizedBox(height: 8),
             // Text('Time Taken: $time', style: TextStyle(color: Colors.grey)),
-            SizedBox(height: 8),
-            Text('Score: $score', style: TextStyle(color: Colors.grey)),
-            SizedBox(height: 8),
-            Text(details, style: TextStyle(color: Colors.grey)),
+            const SizedBox(height: 8),
+            Text('Score: $score', style: const TextStyle(color: Colors.grey)),
+            const SizedBox(height: 8),
+            Text(details, style: const TextStyle(color: Colors.grey)),
           ],
         ),
       ),

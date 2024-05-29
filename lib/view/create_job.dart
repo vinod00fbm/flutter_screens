@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
@@ -32,7 +31,7 @@ class _FormExampleState extends State<CreateJob> {
   String _name = '';
   String _location = '';
   String _description = '';
-  String? _nameError = null;
+  String? _nameError;
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +176,9 @@ class _FormExampleState extends State<CreateJob> {
                       if (_formKey.currentState?.validate() ?? false) {
                         _formKey.currentState?.save();
                         // Do something with the form data, like submit it
-                        print('Name: $_name');
-                        print('Location: $_location');
-                        print('Description: $_description');
+                        Utils.printLogs('Name: $_name');
+                        Utils.printLogs('Location: $_location');
+                        Utils.printLogs('Description: $_description');
 
                         Map data = {
                           'jobName': _name,
@@ -188,7 +187,7 @@ class _FormExampleState extends State<CreateJob> {
                         };
                         // print('data: $data');
                         //jobsViewModel.createJob(data, context);
-                        print('data:$data');
+                        Utils.printLogs('data:$data');
                         jobsViewModel.createJob(data, context);
                       }
                     },
@@ -199,13 +198,7 @@ class _FormExampleState extends State<CreateJob> {
                       onPress: () {
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save();
-                          print('insode next button');
-                          /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CandidatePage()),
-                        );*/
-                          //Navigator.pushNamed(context, RoutesNames.createCandidate);
+                          Utils.printLogs('inside next button');
                           Map data = {
                             'jobsId': Utils.randomNumberGenerator(context),
                             'jobName': _name,
@@ -250,38 +243,5 @@ class _FormExampleState extends State<CreateJob> {
     );
   }
 
-  final List<String> _jobNames = [
-    'Client Partner',
-    'UI Developer',
-    'QA Analyst',
-    'Application Engineer',
-    'Treasury App Support',
-    'Dot Net Lead',
-  ];
   final List<String> _locationTypes = ['On-site', 'Hybrid', 'Remote'];
-/*void _showJobNameDropdown(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Select Job Name'),
-          content: SingleChildScrollView(
-            child: Column(
-              children: _jobNames.map((jobName) {
-                return ListTile(
-                  title: Text(jobName),
-                  onTap: () {
-                    setState(() {
-                      _name = jobName;
-                    });
-                    Navigator.of(context).pop();
-                  },
-                );
-              }).toList(),
-            ),
-          ),
-        );
-      },
-    );
-  }*/
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-
-import '../data/response/api_response.dart';
 import '../repository/create_session_repository.dart';
 import '../utils/utils.dart';
 

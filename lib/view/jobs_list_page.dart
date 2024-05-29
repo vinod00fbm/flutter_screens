@@ -3,6 +3,7 @@ import 'package:flutter_mvvm/data/response/Status.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:provider/provider.dart';
+import '../res/colors/app_colors.dart';
 import '../res/components/Constants.dart';
 import '../utils/GradientAppBar.dart';
 import '../view_model/jobs_viewmodel.dart';
@@ -15,11 +16,12 @@ class JobListPage extends StatefulWidget {
 }
 
 class _JobListPageState extends State<JobListPage> {
-  JobsViewModel jobsViewModel = JobsViewModel();
+  late JobsViewModel jobsViewModel;
 
   @override
   void initState() {
     super.initState();
+    jobsViewModel = JobsViewModel();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       jobsViewModel.getJobs(context);
     });
@@ -27,6 +29,7 @@ class _JobListPageState extends State<JobListPage> {
 
   @override
   Widget build(BuildContext context) {
+    //final jobsResponse = jobsViewModel.jobsList;
     return Scaffold(
       appBar: GradientAppBar(
         title: AppConstants.jobList,
@@ -84,21 +87,22 @@ class _JobListPageState extends State<JobListPage> {
                           var job = value.jobsList.data?.jobsList?[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 6.0),
+                                horizontal: 250, vertical: 6.0),
                             child: Card(
                               elevation: 4.0,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(1.0),
                               ),
                               child: ListTile(
-                                contentPadding: const EdgeInsets.all(16.0),
+                                contentPadding: const EdgeInsets.fromLTRB(
+                                    24.0, 8.0, 12.0, 8.0),
                                 title: Text(
                                   'Job Name: ${job?.jobName ?? 'No Job Name'}',
                                   style: const TextStyle(
-                                    fontFamily: 'sourcesanspro_bold',
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      fontFamily: 'Roboto-Regular',
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.orange),
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,16 +110,16 @@ class _JobListPageState extends State<JobListPage> {
                                     Text(
                                       'Job Id: ${job?.jobId ?? 'No Job ID'}',
                                       style: const TextStyle(
-                                        fontFamily: 'sourcesanspro_bold',
-                                        fontSize: 16.0,
+                                        fontFamily: 'Roboto-Regular',
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
                                       'Job Type: ${job?.jobType ?? 'No Job Type'}',
                                       style: const TextStyle(
-                                        fontFamily: 'sourcesanspro_bold',
-                                        fontSize: 16.0,
+                                        fontFamily: 'Roboto-Regular',
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),

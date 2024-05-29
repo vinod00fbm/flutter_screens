@@ -4,6 +4,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/res/components/Constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils {
@@ -19,7 +20,7 @@ class Utils {
         flushbar: Flushbar(
           message: message,
           backgroundColor: Colors.red,
-          title: "My App",
+          title: AppConstants.appName,
           messageColor: Colors.amber,
           forwardAnimationCurve: Curves.decelerate,
           flushbarPosition: FlushbarPosition.TOP,
@@ -39,7 +40,7 @@ class Utils {
         flushbar: Flushbar(
           message: message,
           backgroundColor: Colors.green,
-          title: "My App",
+          title: AppConstants.appName,
           messageColor: Colors.white,
           forwardAnimationCurve: Curves.decelerate,
           flushbarPosition: FlushbarPosition.TOP,

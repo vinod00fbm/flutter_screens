@@ -8,6 +8,6 @@ class AppUrls {
   static var createCandidate = '${rootUrl}candidate/';
   static var getJobDescription = '${rootUrl}jobs/getJobDesc/';
   static var getCandidates = '${rootUrl}candidate/';
-  static var getJobs = '${rootUrl}jobs/get';
+  static var getJobs = '${rootUrl}jobs/get/';
   static var createSession = 'https://select-sense-apis.azurewebsites.net/session/createSession/';
 }
