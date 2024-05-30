@@ -29,7 +29,6 @@ class _JobListPageState extends State<JobListPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final jobsResponse = jobsViewModel.jobsList;
     return Scaffold(
       appBar: GradientAppBar(
         title: AppConstants.jobList,

@@ -8,4 +8,5 @@ class RoutesNames {
   static const String createSession = 'create_session';
   static const String viewEvaluation = 'view_evaluation';
   static const String assessmentReviewScreen = 'assessment_review_screen';
+  static const String generateJobDesc = 'generate_job_desc';
 }

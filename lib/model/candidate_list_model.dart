@@ -52,4 +52,9 @@ class Candidate {
       'jobName': jobName
     };
   }
+
+  @override
+  String toString() {
+    return 'Candidate{sId: $sId, candidateId: $candidateId, fullName: $fullName, fileName: $fileName, jobId: $jobId, status: $status, jobName: $jobName}';
+  }
 }

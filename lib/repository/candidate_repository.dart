@@ -39,7 +39,7 @@ class CandidateRepository {
       List<dynamic> responseList = response as List<dynamic>;
       List<Candidate> candidates =
           responseList.map((item) => Candidate.fromJson(item)).toList();
-      Utils.printLogs("candidate List $candidates");
+      Utils.printLogs("candidate List ${candidates.toString()}");
       return candidates;
     } catch (e) {
       print('$e');

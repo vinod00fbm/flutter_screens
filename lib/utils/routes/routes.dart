@@ -5,6 +5,7 @@ import 'package:flutter_mvvm/view/candidate_list_page.dart';
 import 'package:flutter_mvvm/view/create_session.dart';
 import 'package:flutter_mvvm/view/eveluation_screen.dart';
 import 'package:flutter_mvvm/view/home_screen.dart';
+import 'package:flutter_mvvm/view/job_desc_page.dart';
 import 'package:flutter_mvvm/view/login_scree.dart';
 import '../../view/create_candidate.dart';
 import '../../view/create_job.dart';
@@ -42,7 +43,11 @@ class Routes {
       case RoutesNames.assessmentReviewScreen:
         final candidateId = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (BuildContext context) => AssessmentReviewScreen(candidateId: candidateId));
+            builder: (BuildContext context) =>
+                AssessmentReviewScreen(candidateId: candidateId));
+      case RoutesNames.generateJobDesc:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const JobDescriptionPage());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

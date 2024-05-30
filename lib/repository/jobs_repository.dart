@@ -14,7 +14,7 @@ class JobsRepository {
           await _apiServices.getPostApiResponse(AppUrls.postJobEndPoint, data);
       return response;
     } catch (e) {
-      print('$e');
+      Utils.printLogs('$e');
       rethrow;
     }
   }
@@ -34,20 +34,6 @@ class JobsRepository {
       rethrow;
     }
   }
-
-  /*Future<dynamic> getJobs() async {
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(AppUrls.getJobs);
-      List<dynamic> responseList = response as List<dynamic>;
-      List<Jobs> jobs =
-          responseList.map((item) => Jobs.fromJson(item)).toList();
-      Utils.printLogs('Jobs List ${jobs.toString()}');
-      return jobs;
-    } catch (e) {
-      Utils.printLogs('$e');
-      rethrow;
-    }
-  }*/
 
   Future<dynamic> generateJobDescription(dynamic data) async {
     try {

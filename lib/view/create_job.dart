@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
+import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view_model/jobs_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,14 @@ class _FormExampleState extends State<CreateJob> {
   String _description = '';
   String? _nameError;
 
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final jobsViewModel = Provider.of<JobsViewModel>(context);
@@ -56,13 +65,14 @@ class _FormExampleState extends State<CreateJob> {
                 height: 20.0,
               ),
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2, color: AppColors.borderColor)),
+                      BorderSide(width: 2, color: AppColors.borderColor)),
                   border: OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2, color: AppColors.borderColor)),
+                      BorderSide(width: 2, color: AppColors.borderColor)),
                   labelText: 'Job Title*',
                 ),
                 validator: (value) {
@@ -115,6 +125,7 @@ class _FormExampleState extends State<CreateJob> {
                   Expanded(
                     flex: 7,
                     child: TextFormField(
+                      controller: _descriptionController,
                       maxLines: null,
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -140,24 +151,16 @@ class _FormExampleState extends State<CreateJob> {
                   Expanded(
                     flex: 3,
                     child: RoundedButton(
-                      onPress: () {
-                        setState(() {
-                          _nameError = null;
-                        });
-                        if (_formKey.currentState?.validate() ?? false) {
-                          _formKey.currentState?.save();
-                          if (_name.isEmpty) {
-                            setState(() {
-                              _nameError = 'Please enter a job title';
-                            });
-                          } else {
-                            Map data = {
-                              'positionName': 'Senior Software Engineer',
-                              'roles': 'Developing, Testing, Debugging',
-                              'experience': 5
-                            };
-                            jobsViewModel.generateJobDescription(data, context);
-                          }
+                      // set data from next screen
+                      onPress: () async {
+                        final result = await Navigator.pushNamed(
+                            context, RoutesNames.generateJobDesc);
+                        if (result != null) {
+                          final data = result as Map<String, String>;
+                          setState(() {
+                            _nameController.text = data['positionName']!;
+                            _descriptionController.text = data['message']!;
+                          });
                         }
                       },
                       title: 'Generate Description',
@@ -192,7 +195,7 @@ class _FormExampleState extends State<CreateJob> {
                       }
                     },
                   ),
-                  RoundedButton(
+                  /*RoundedButton(
                       title: 'Next Button',
                       loading: false,
                       onPress: () {
@@ -207,7 +210,8 @@ class _FormExampleState extends State<CreateJob> {
                           };
                           jobsViewModel.createJob(data, context);
                         }
-                      })
+                      },
+                  ),*/
                 ],
               ),
             ],
