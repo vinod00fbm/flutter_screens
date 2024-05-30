@@ -17,4 +17,5 @@ class AppConstants {
   static var createSession = 'Create Session';
   static var appName = 'select sense';
   static var jobDescription = 'Job Description';
+
 }
