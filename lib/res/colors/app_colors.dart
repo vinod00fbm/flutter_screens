@@ -4,7 +4,7 @@ class AppColors {
   static const whiteColor = Colors.white;
   static const blackColor = Colors.black;
   static const buttonColor = Colors.green;
-  static const grayColor = Color(0x565E63);
+  static const grayColor = Colors.grey;
 
   static const Color green = Color(0xFF78C065);
   static const Color orange = Color(0xFFF2872D);

@@ -5,7 +5,7 @@ import 'package:flutter_mvvm/data/response/Status.dart';
 import 'package:flutter_mvvm/res/colors/app_colors.dart';
 import 'package:flutter_mvvm/res/components/Constants.dart';
 import 'package:flutter_mvvm/res/components/round_button.dart';
-import 'package:flutter_mvvm/utils/GradientAppBar.dart';
+import 'package:flutter_mvvm/utils/gradient_app_bar.dart';
 import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
 import 'package:provider/provider.dart';

@@ -40,16 +40,7 @@ class JobsViewModel with ChangeNotifier {
     }
   }
 
-  /*Future<void> generateJobDescription(
-      dynamic data, BuildContext context) async {
-    _myRepo.generateJobDescription(data).then((value) {
-      Utils.printLogs('Job description ---> ${value.toString()}');
-      Utils.printLogs('Inside generate JobDescription');
-    }).onError((error, stackTrace) {
-      Utils.printLogs('Inside On error generate JobDescription');
-    });
-  }*/
-
+  // Api call to get job description
   Future<Map<String, String>> generateJobDescription(
       dynamic data, BuildContext context) async {
     try {
@@ -60,7 +51,7 @@ class JobsViewModel with ChangeNotifier {
       // Assuming response is a JSON object with a "message" field
       final message = response['message'] as String;
       //Navigator.pop(context, {'positionName': data['positionName'], 'message': message});
-      return {'positionName': data['positionName'], 'message': message};
+      return {'technicalRequirements': data['technicalRequirements'], 'message': message};
     } catch (error) {
       Utils.printLogs('Inside On error generate JobDescription');
       Utils.printLogs(error.toString());

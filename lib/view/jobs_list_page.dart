@@ -5,7 +5,7 @@ import 'package:flutter_mvvm/utils/routes/routes_names.dart';
 import 'package:provider/provider.dart';
 import '../res/colors/app_colors.dart';
 import '../res/components/Constants.dart';
-import '../utils/GradientAppBar.dart';
+import '../utils/gradient_app_bar.dart';
 import '../view_model/jobs_viewmodel.dart';
 
 class JobListPage extends StatefulWidget {

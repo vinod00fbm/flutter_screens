@@ -10,7 +10,7 @@ import 'package:flutter_mvvm/view_model/candidate_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../res/components/Constants.dart';
-import '../utils/GradientAppBar.dart';
+import '../utils/gradient_app_bar.dart';
 import '../utils/utils.dart';
 
 class CandidatePage extends StatefulWidget {
@@ -244,6 +244,7 @@ class _CandidatePageState extends State<CandidatePage> {
                   }
                 },
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

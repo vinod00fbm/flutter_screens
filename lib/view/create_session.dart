@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../res/colors/app_colors.dart';
 import '../res/components/Constants.dart';
-import '../utils/GradientAppBar.dart';
+import '../utils/gradient_app_bar.dart';
 
 class CreateSession extends StatefulWidget {
   final int candidateId;

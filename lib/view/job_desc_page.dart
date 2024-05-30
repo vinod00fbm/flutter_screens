@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mvvm/res/components/Constants.dart';
-import 'package:flutter_mvvm/utils/GradientAppBar.dart';
+import 'package:flutter_mvvm/utils/gradient_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../res/colors/app_colors.dart';
@@ -42,6 +43,7 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
             children: [
               const SizedBox(height: 20.0),
               TextFormField(
+                maxLines: 5,
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -49,10 +51,10 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
                     border: OutlineInputBorder(
                         borderSide:
                             BorderSide(width: 2, color: AppColors.borderColor)),
-                    labelText: 'Position Name*'),
+                    labelText: 'Technical Requirements*'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
-                    return 'Please enter position name';
+                    return 'Please enter technical requirements';
                   }
                   return null;
                 },
@@ -60,8 +62,16 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
                   _positionName = value!;
                 },
               ),
+              const SizedBox(height: 5.0),
+              const Text(
+                  style: TextStyle(
+                      fontFamily: 'Roboto-Regular',
+                      fontSize: 12.0,
+                      color: AppColors.grayColor),
+                  'Hint:- e.g., Android SDK: Expertise in core components (Activities, Services, etc.), Kotlin/Java: Strong programming skills, UI/UX Design: Experience with Material Design'),
               const SizedBox(height: 20.0),
               TextFormField(
+                maxLines: 5,
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -69,10 +79,10 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
                     border: OutlineInputBorder(
                         borderSide:
                             BorderSide(width: 2, color: AppColors.borderColor)),
-                    labelText: 'Roles*'),
+                    labelText: 'Star Performer Expectations*'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
-                    return 'Please enter roles';
+                    return 'Please enter star performer expectations';
                   }
                   return null;
                 },
@@ -80,25 +90,46 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
                   _roles = value!;
                 },
               ),
+              const SizedBox(height: 5.0),
+              const Text(
+                  style: TextStyle(
+                      fontFamily: 'Roboto-Regular',
+                      fontSize: 12.0,
+                      color: AppColors.grayColor),
+                  'Hint- e.g., Analytical Skills: Strong analytical skills, Communication: Excellent verbal and written skills, Teamwork: Collaborative team player'),
               const SizedBox(height: 20.0),
               TextFormField(
                 decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 2, color: AppColors.borderColor)),
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 2, color: AppColors.borderColor)),
-                    labelText: 'Experience*'),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColors.borderColor)),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColors.borderColor)),
+                  labelText: 'Required Experience (in years)*',
+                ),
+                keyboardType: TextInputType.phone,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(2),
+                ],
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
-                    return 'Please enter experience';
+                    return 'Please enter experience in years';
                   }
                   return null;
                 },
                 onSaved: (value) {
                   _experience = value!;
                 },
+              ),
+              const SizedBox(height: 5.0),
+              const Text(
+                'Hint- e.g., 10',
+                style: TextStyle(
+                    fontFamily: 'Roboto-Regular',
+                    fontSize: 12.0,
+                    color: AppColors.grayColor),
               ),
               const SizedBox(height: 20.0),
               RoundedButton(
@@ -111,24 +142,20 @@ class _JobDescriptionPageState extends State<JobDescriptionPage> {
                     Utils.printLogs('Experience: $_experience');
 
                     Map data = {
-                      'positionName': _positionName,
-                      'roles': _roles,
+                      'technicalRequirements': _positionName,
+                      'starPerformerExpectations': _roles,
                       'experience': _experience.toString()
                     };
-                    //jobsViewModel.generateJobDescription(data, context);
                     Utils.printLogs('Generate Job desc clicked ->');
-                    final result = await jobsViewModel.generateJobDescription(data, context);
+                    final result = await jobsViewModel.generateJobDescription(
+                        data, context);
                     if (result != null) {
                       Navigator.pop(context, result);
                     }
-                    /*setState(() {
-                      _positionName = null;
-                      _roles = null;
-                      _experience = null;
-                    });*/
                   }
                 },
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
