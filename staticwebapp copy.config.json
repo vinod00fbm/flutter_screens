@@ -1,0 +1,17 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/session",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/session/*",
+      "rewrite": "/index.html"
+    }
+  ]
+}
+
