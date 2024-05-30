@@ -84,51 +84,12 @@ class _JobListPageState extends State<JobListPage> {
                         itemCount: value.jobsList.data?.jobsList?.length ?? 0,
                         itemBuilder: (context, index) {
                           var job = value.jobsList.data?.jobsList?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 250, vertical: 6.0),
-                            child: Card(
-                              elevation: 4.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(1.0),
-                              ),
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.fromLTRB(
-                                    24.0, 8.0, 12.0, 8.0),
-                                title: Text(
-                                  'Job Name: ${job?.jobName ?? 'No Job Name'}',
-                                  style: const TextStyle(
-                                      fontFamily: 'Roboto-Regular',
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.orange),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Job Id: ${job?.jobId ?? 'No Job ID'}',
-                                      style: const TextStyle(
-                                        fontFamily: 'Roboto-Regular',
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Job Type: ${job?.jobType ?? 'No Job Type'}',
-                                      style: const TextStyle(
-                                        fontFamily: 'Roboto-Regular',
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                onTap: () {
-                                  // Handle tap if needed, e.g., navigate to a detailed view
-                                },
-                              ),
-                            ),
+                          return  JobCard(
+                            jobTitle: job?.jobName ?? "",
+                            jobType: job?.jobType ?? "",
+                            description: job?.jobDesc ?? "",
+                            appliedCount: 74,
+                            daysLeft: 30,
                           );
                         },
                       ),
@@ -139,6 +100,96 @@ class _JobListPageState extends State<JobListPage> {
                 return Container(); // or some default widget
             }
           },
+        ),
+      ),
+    );
+  }
+}
+
+class JobCard extends StatefulWidget {
+  final String jobTitle;
+  final String jobType;
+  final String description;
+  final int appliedCount;
+  final int daysLeft;
+
+  JobCard({
+    required this.jobTitle,
+    required this.jobType,
+    required this.description,
+    required this.appliedCount,
+    required this.daysLeft,
+  });
+
+  @override
+  State<JobCard> createState() => _JobCardState();
+}
+
+class _JobCardState extends State<JobCard> {
+  var _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(1.0),
+      ),
+      margin: EdgeInsets.symmetric(vertical: 8.0,horizontal: 20),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.jobTitle,
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8.0),
+            // Wrap(
+            //   spacing: 8.0,
+            //   children: tags.map((tag) => Chip(label: Text(tag))).toList(),
+            // ),
+            SizedBox(height: 8.0),
+            Text(
+              widget.description,
+              maxLines: _expanded ? 100 : 5,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+            if (!_expanded)
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _expanded = true;
+                  });
+                },
+                child: Text("Show more",textAlign: TextAlign.end),
+              ),
+            SizedBox(height: 8.0),
+            Row(
+              children: [
+                Icon(Icons.work_outline, size: 20.0),
+                SizedBox(width: 4.0),
+                Text(widget.jobType),
+                SizedBox(width: 16.0),
+                Icon(Icons.location_on_outlined, size: 20.0),
+                SizedBox(width: 4.0),
+                Text("India"),
+                Spacer(),
+                // Icon(Icons.person_outline, size: 20.0),
+                // SizedBox(width: 4.0),
+                // Text('$appliedCount applied'),
+                // SizedBox(width: 16.0),
+                Icon(Icons.access_time_outlined, size: 20.0),
+                SizedBox(width: 4.0),
+                Text('${widget.daysLeft} days left'),
+              ],
+            ),
+          ],
         ),
       ),
     );

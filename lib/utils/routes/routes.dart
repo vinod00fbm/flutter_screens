@@ -17,7 +17,7 @@ class Routes {
     switch (settings.name) {
       case RoutesNames.home:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const HomeScreen());
+            builder: (BuildContext context) =>  HomeScreen());
       case RoutesNames.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());
@@ -57,5 +57,6 @@ class Routes {
           );
         });
     }
+
   }
 }
