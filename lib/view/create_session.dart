@@ -138,10 +138,8 @@ class _CreateSessionState extends State<CreateSession> {
                 },
               ),
               if (createSessionViewModel.isLoading)
-                const Positioned.fill(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                Center(
+                  child: CircularProgressIndicator(),
                 ),
             ],
           ),
