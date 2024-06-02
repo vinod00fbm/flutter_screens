@@ -9,10 +9,10 @@ class AssessmentReviewScreen extends StatelessWidget {
 
   AssessmentReviewScreen({required this.candidateId, Key? key})
       : super(key: key);
-
+late PreScreeningViewModel createSessionViewModel;
   @override
   Widget build(BuildContext context) {
-    final createSessionViewModel =
+     createSessionViewModel =
         Provider.of<PreScreeningViewModel>(context as BuildContext);
     Map<String, String> data = {
       'candidateId': '1716284683481'
@@ -77,7 +77,9 @@ class AssessmentReviewScreen extends StatelessWidget {
             ElevatedButton(onPressed: () {}, child: const Text('Shortlist')),
             const SizedBox(width: 8),
             ElevatedButton(
-                onPressed: () {}, child: const Text('Start Instant Interview')),
+                onPressed: () {
+                 // createSessionViewModel.selectOrRejectCandidate(this.candidateId,true);
+                }, child: const Text('Start Instant Interview')),
           ],
         ),
       ],
